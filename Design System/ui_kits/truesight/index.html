@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <title>TrueSight — RDI Technologies</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--bg-0); overflow: hidden; color: var(--fg-1); }
+    #root { height: 100%; display: flex; flex-direction: column; }
+
+    /* ================= TWEAKS PANEL ================= */
+    #tweaks {
+      position: fixed; right: 14px; bottom: 40px; width: 280px;
+      background: var(--bg-card); color: var(--fg-1);
+      border: 1px solid var(--border-2); border-radius: 8px;
+      box-shadow: 0 16px 40px rgba(0,0,0,.36);
+      font-family: var(--font-sans); font-size: 12px;
+      z-index: 1000; display: none; overflow: hidden;
+    }
+    #tweaks.open { display: block; }
+    #tweaks .tw-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 12px; border-bottom: 1px solid var(--border-2);
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-3);
+    }
+    #tweaks .tw-body { padding: 12px; display: flex; flex-direction: column; gap: 14px; }
+    #tweaks label { display: flex; flex-direction: column; gap: 6px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-3); font-weight: 600; }
+    #tweaks .seg { display: flex; gap: 4px; background: var(--bg-2); border-radius: 4px; padding: 3px; }
+    #tweaks .seg button {
+      flex: 1; padding: 6px 8px; background: transparent; color: var(--fg-2);
+      border: 0; border-radius: 3px; font-size: 11px; font-weight: 600; cursor: pointer;
+      letter-spacing: 0.04em; text-transform: capitalize;
+    }
+    #tweaks .seg button.on { background: var(--accent); color: #fff; }
+    #tweaks .row { display: flex; align-items: center; gap: 8px; }
+    #tweaks input[type=range] { flex: 1; accent-color: var(--accent); }
+    #tweaks .val { font-family: var(--font-mono); font-size: 11px; color: var(--fg-2); min-width: 34px; text-align: right; }
+    #tweaks .swatches { display: flex; gap: 6px; flex-wrap: wrap; }
+    #tweaks .swatches button {
+      width: 28px; height: 28px; border-radius: 4px; border: 2px solid transparent; cursor: pointer; padding: 0;
+    }
+    #tweaks .swatches button.on { border-color: var(--fg-1); }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <div id="tweaks">
+    <div class="tw-head"><span>Tweaks</span><span id="tw-close" style="cursor:pointer">×</span></div>
+    <div class="tw-body">
+      <label>Theme
+        <div class="seg" id="tw-theme">
+          <button data-v="dark">Dark</button>
+          <button data-v="light">Light</button>
+        </div>
+      </label>
+      <label>Accent
+        <div class="swatches" id="tw-accent">
+          <button data-v="#BA2528" style="background:#BA2528" title="RDI Red"></button>
+          <button data-v="#0F6A83" style="background:#0F6A83" title="Instrument Cyan"></button>
+          <button data-v="#15803D" style="background:#15803D" title="Status Pass"></button>
+          <button data-v="#9B1C1F" style="background:#9B1C1F" title="RDI Red 600"></button>
+        </div>
+      </label>
+      <label>Density
+        <div class="seg" id="tw-density">
+          <button data-v="compact">Compact</button>
+          <button data-v="comfortable">Comfortable</button>
+        </div>
+      </label>
+      <label>Status tone
+        <div class="seg" id="tw-status">
+          <button data-v="ds">DS tokens</button>
+          <button data-v="bright">Bright</button>
+        </div>
+      </label>
+      <label>Amplification default
+        <div class="row"><input type="range" id="tw-amp" min="1" max="20"><span class="val" id="tw-amp-v">8×</span></div>
+      </label>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="Toolbar.jsx"></script>
+  <script type="text/babel" src="AssetList.jsx"></script>
+  <script type="text/babel" src="VideoCanvas.jsx"></script>
+  <script type="text/babel" src="SpectrumPanel.jsx"></script>
+  <script type="text/babel" src="InspectorPanel.jsx"></script>
+  <script type="text/babel" src="StatusFooter.jsx"></script>
+
+  <script>
+    /* ===================== TWEAKS APPLICATION ===================== */
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "theme": "dark",
+      "accent": "#BA2528",
+      "density": "compact",
+      "statusTone": "bright",
+      "ampDefault": 8
+    }/*EDITMODE-END*/;
+
+    const TWEAK_STATE = { ...TWEAK_DEFAULTS };
+
+    function applyTweaks(s) {
+      document.documentElement.setAttribute('data-theme', s.theme);
+      document.documentElement.style.setProperty('--accent', s.accent);
+      document.documentElement.style.setProperty('--accent-hover', s.accent);
+      document.documentElement.style.setProperty('--rdi-red-500', s.accent);
+      document.documentElement.style.setProperty('--density-pad', s.density === 'compact' ? '6px' : '10px');
+
+      // Status tone: DS tokens (from design system) vs bright
+      if (s.statusTone === 'ds') {
+        document.documentElement.style.setProperty('--ts-pass', '#15803D');
+        document.documentElement.style.setProperty('--ts-caution', '#D97706');
+        document.documentElement.style.setProperty('--ts-alarm', '#DC2626');
+        document.documentElement.style.setProperty('--ts-info', '#2563EB');
+      } else {
+        document.documentElement.style.setProperty('--ts-pass', '#34D399');
+        document.documentElement.style.setProperty('--ts-caution', '#FBBF24');
+        document.documentElement.style.setProperty('--ts-alarm', '#F87171');
+        document.documentElement.style.setProperty('--ts-info', '#60A5FA');
+      }
+      window.__TS_AMP_DEFAULT = s.ampDefault;
+      // notify React app
+      window.dispatchEvent(new CustomEvent('tweaks-changed', { detail: { ...s } }));
+    }
+    applyTweaks(TWEAK_STATE);
+
+    /* ===================== TWEAKS UI WIRING ===================== */
+    const panel = document.getElementById('tweaks');
+    function syncUI() {
+      document.querySelectorAll('#tw-theme button').forEach(b => b.classList.toggle('on', b.dataset.v === TWEAK_STATE.theme));
+      document.querySelectorAll('#tw-density button').forEach(b => b.classList.toggle('on', b.dataset.v === TWEAK_STATE.density));
+      document.querySelectorAll('#tw-status button').forEach(b => b.classList.toggle('on', b.dataset.v === TWEAK_STATE.statusTone));
+      document.querySelectorAll('#tw-accent button').forEach(b => b.classList.toggle('on', b.dataset.v === TWEAK_STATE.accent));
+      document.getElementById('tw-amp').value = TWEAK_STATE.ampDefault;
+      document.getElementById('tw-amp-v').textContent = TWEAK_STATE.ampDefault + '×';
+    }
+    function setTweak(k, v) {
+      TWEAK_STATE[k] = v;
+      applyTweaks(TWEAK_STATE);
+      syncUI();
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [k]: v } }, '*');
+    }
+    document.getElementById('tw-theme').addEventListener('click', e => { if (e.target.dataset.v) setTweak('theme', e.target.dataset.v); });
+    document.getElementById('tw-density').addEventListener('click', e => { if (e.target.dataset.v) setTweak('density', e.target.dataset.v); });
+    document.getElementById('tw-status').addEventListener('click', e => { if (e.target.dataset.v) setTweak('statusTone', e.target.dataset.v); });
+    document.getElementById('tw-accent').addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (btn && btn.dataset.v) setTweak('accent', btn.dataset.v);
+    });
+    document.getElementById('tw-amp').addEventListener('input', e => setTweak('ampDefault', +e.target.value));
+    document.getElementById('tw-close').addEventListener('click', () => panel.classList.remove('open'));
+
+    /* edit-mode listener BEFORE announcing */
+    window.addEventListener('message', (e) => {
+      const d = e.data || {};
+      if (d.type === '__activate_edit_mode')   panel.classList.add('open');
+      if (d.type === '__deactivate_edit_mode') panel.classList.remove('open');
+    });
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    syncUI();
+  </script>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const ASSETS = [
+      { id: 'M-DE',  label: 'M-DE',  name: 'Motor DE Bearing',  type: 'Rolling element bearing', x: 260, y: 300, phase: 0,   amp: 1.0, value: '0.0834', unit: 'mils pk-pk', status: 'caution' },
+      { id: 'M-NDE', label: 'M-NDE', name: 'Motor NDE Bearing', type: 'Rolling element bearing', x: 210, y: 270, phase: 2.1, amp: 0.5, value: '0.0312', unit: 'mils pk-pk', status: 'pass' },
+      { id: 'CPL',   label: 'CPL',   name: 'Coupling',          type: 'Flexible coupling',       x: 330, y: 310, phase: 0.9, amp: 1.6, value: '0.1204', unit: 'mils pk-pk', status: 'alarm' },
+      { id: 'P-IN',  label: 'P-IN',  name: 'Pump Inboard',      type: 'Centrifugal pump',        x: 430, y: 320, phase: 3.1, amp: 0.8, value: '0.0651', unit: 'mils pk-pk', status: 'caution' },
+      { id: 'P-OUT', label: 'P-OUT', name: 'Pump Outboard',     type: 'Centrifugal pump',        x: 510, y: 300, phase: 1.7, amp: 0.4, value: '0.0268', unit: 'mils pk-pk', status: 'pass' },
+      { id: 'PIPE',  label: 'PIPE',  name: 'Discharge Pipe',    type: 'Piping · 6" sch 40',      x: 600, y: 240, phase: 4.2, amp: 1.2, value: '0.0922', unit: 'mils pk-pk', status: 'caution' },
+      { id: 'BASE',  label: 'BASE',  name: 'Mounting Base',     type: 'Concrete base',           x: 400, y: 400, phase: 5.5, amp: 0.2, value: '0.0087', unit: 'mils pk-pk', status: 'pass' },
+    ];
+
+    function App() {
+      const [selected, setSelected] = useState('CPL');
+      const [recording, setRecording] = useState(true);
+      const [amp, setAmp] = useState(window.__TS_AMP_DEFAULT || 8);
+      const [time, setTime] = useState('00:00:00');
+      useEffect(() => {
+        const onTweak = (e) => { if (typeof e.detail.ampDefault === 'number') setAmp(e.detail.ampDefault); };
+        window.addEventListener('tweaks-changed', onTweak);
+        return () => window.removeEventListener('tweaks-changed', onTweak);
+      }, []);
+      useEffect(() => {
+        const t0 = Date.now();
+        const iv = setInterval(() => {
+          const d = Math.floor((Date.now() - t0) / 1000);
+          const h = String(Math.floor(d/3600)).padStart(2,'0');
+          const m = String(Math.floor((d%3600)/60)).padStart(2,'0');
+          const s = String(d%60).padStart(2,'0');
+          setTime(`${h}:${m}:${s}`);
+        }, 1000);
+        return () => clearInterval(iv);
+      }, []);
+      const sel = ASSETS.find(a => a.id === selected);
+      return (
+        <>
+          <Toolbar recording={recording} onToggle={() => setRecording(r => !r)} amp={amp} onAmp={setAmp} />
+          <div style={{flex: 1, display: 'flex', minHeight: 0}}>
+            <AssetList assets={ASSETS} selected={selected} onSelect={setSelected} />
+            <div style={{flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0}}>
+              <VideoCanvas assets={ASSETS} selected={selected} onSelect={setSelected} amp={amp} time={time} />
+              <SpectrumPanel />
+            </div>
+            <InspectorPanel asset={sel} />
+          </div>
+          <StatusFooter recording={recording} />
+        </>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

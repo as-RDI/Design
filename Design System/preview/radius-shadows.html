@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Radius & Shadows</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 22px 28px; background: var(--bg-1); font-family: var(--font-sans); display:flex; flex-direction:column; gap: 20px; }
+  .section { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-3); }
+  .row { display: flex; gap: 14px; }
+  .box { width: 88px; height: 64px; background: var(--bg-card); border: 1px solid var(--border-2); display: flex; flex-direction:column; align-items: center; justify-content: center; gap: 4px; }
+  .box b { font-family: var(--font-mono); font-size: 10px; color: var(--fg-1); font-weight: 500; }
+  .box span { font-family: var(--font-mono); font-size: 9px; color: var(--fg-3); }
+  .shadow { border: 1px solid transparent; }
+</style></head>
+<body>
+  <div>
+    <div class="section" style="margin-bottom: 10px;">Corner Radius</div>
+    <div class="row">
+      <div class="box" style="border-radius: 0"><b>r-0</b><span>0</span></div>
+      <div class="box" style="border-radius: 3px"><b>r-1</b><span>3</span></div>
+      <div class="box" style="border-radius: 6px"><b>r-2</b><span>6</span></div>
+      <div class="box" style="border-radius: 10px"><b>r-3</b><span>10</span></div>
+      <div class="box" style="border-radius: 14px"><b>r-4</b><span>14</span></div>
+      <div class="box" style="border-radius: 999px; width: 120px"><b>r-full</b><span>999</span></div>
+    </div>
+  </div>
+  <div>
+    <div class="section" style="margin-bottom: 10px;">Elevation</div>
+    <div class="row">
+      <div class="box shadow" style="border-radius: 10px; box-shadow: var(--shadow-1)"><b>sh-1</b><span>hairline</span></div>
+      <div class="box shadow" style="border-radius: 10px; box-shadow: var(--shadow-2)"><b>sh-2</b><span>card</span></div>
+      <div class="box shadow" style="border-radius: 10px; box-shadow: var(--shadow-3)"><b>sh-3</b><span>modal</span></div>
+      <div class="box" style="border-radius: 10px; box-shadow: var(--shadow-focus); border-color: var(--accent)"><b>focus</b><span>ring</span></div>
+    </div>
+  </div>
+</body></html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="52px" height="52px" viewBox="0 0 52 52" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <g id="Group-13" transform="translate(0.6298828 0.6298828)">
+    <path d="M24.948 49.896C38.7264 49.896 49.896 38.7264 49.896 24.948C49.896 11.1696 38.7264 0 24.948 0C11.1696 0 0 11.1696 0 24.948C0 38.7264 11.1696 49.896 24.948 49.896Z" id="Oval" fill="#BA2528" stroke="#FFFFFF" stroke-width="1.26"></path>
+    <g id="Group-4" transform="translate(9.240234 9.23999)">
+      <path d="M1.04119 14.198C0.378615 12.3996 0 10.5066 0 8.51883C0 5.39526 0.946537 2.461 2.55565 0L10.8852 14.198L1.04119 14.2927L1.04119 14.198Z" transform="translate(0 7.004395)" id="Path" fill="#FFFFFF" stroke="none"></path>
+      <path d="M11.6424 8.51883C6.5311 7.7616 2.27169 4.54338 0 0.0946537L16.4697 0L11.6424 8.51883Z" transform="translate(1.608887 22.33838)" id="Path" fill="#FFFFFF" stroke="none"></path>
+      <path d="M13.0622 8.42418C10.2226 12.021 5.86853 14.2927 0.946537 14.2927C0.662576 14.2927 0.283961 14.2927 0 14.2927L8.14021 0L13.0622 8.51883L13.0622 8.42418Z" transform="translate(14.57666 16.84839)" id="Path" fill="#FFFFFF" stroke="none"></path>
+      <path d="M9.93863 0.0946537C10.6012 1.79842 10.9798 3.69149 10.9798 5.67922C10.9798 8.89744 10.0333 11.8317 8.32952 14.2927L0 0L9.84398 0L9.93863 0.0946537Z" transform="translate(20.06641 9.843994)" id="Path" fill="#FFFFFF" stroke="none"></path>
+      <path d="M4.82734 0C9.93863 0.757229 14.2927 4.07011 16.5644 8.51883L0 8.51883L4.82734 0Z" transform="translate(12.96777 0.189209)" id="Path" fill="#FFFFFF" stroke="none"></path>
+      <path d="M12.1157 0C12.3996 0 12.7782 0 13.0622 0L4.92199 14.2927L0 5.86853C2.83961 2.27169 7.28833 0 12.2103 0L12.1157 0Z" transform="translate(3.407715 0)" id="Path" fill="#FFFFFF" stroke="none"></path>
+    </g>
+  </g>
+</svg>

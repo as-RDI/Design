@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Body Type</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 28px 32px; background: var(--bg-0); }
+  .row { display: flex; align-items: baseline; gap: 18px; padding: 10px 0; border-bottom: 1px solid var(--border-1); }
+  .row:last-child { border-bottom: 0; }
+  .label { width: 140px; flex-shrink: 0; }
+  .tag { display:block; font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); }
+  .spec { display:block; font-family: var(--font-mono); font-size: 9px; color: var(--fg-4); margin-top: 2px; }
+  .eyebrow { letter-spacing: 0.1em; }
+</style></head>
+<body>
+  <div class="row">
+    <div class="label"><span class="tag">rdi-eyebrow</span><span class="spec">Inter · 600 · 11px · caps</span></div>
+    <div class="rdi-eyebrow">Condition Monitoring</div>
+  </div>
+  <div class="row">
+    <div class="label"><span class="tag">rdi-lead</span><span class="spec">Inter · 400 · 20px</span></div>
+    <div class="rdi-lead">Turn every pixel in the camera's view into a sensor.</div>
+  </div>
+  <div class="row">
+    <div class="label"><span class="tag">rdi-body</span><span class="spec">Inter · 400 · 15px</span></div>
+    <div class="rdi-body" style="max-width: 480px;">Iris MA captures at up to 1,400 FPS and amplifies sub-micron motion into visible displacement on the video itself.</div>
+  </div>
+  <div class="row">
+    <div class="label"><span class="tag">rdi-small</span><span class="spec">Inter · 400 · 13px</span></div>
+    <div class="rdi-small">ISO 10816 vibration class, measured pk-pk displacement.</div>
+  </div>
+</body></html>

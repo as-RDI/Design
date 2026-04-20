@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RDI Technologies — Design System</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=4">
+<style>
+  @page { size: letter portrait; margin: 0; }
+
+  :root { color-scheme: light; }
+  html, body {
+    margin: 0; background: #E8ECEF; color: var(--fg-1);
+    font-family: var(--font-sans);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* Exact letter dimensions — fills the page edge-to-edge */
+  .page {
+    width: 8.5in; height: 11in;
+    padding: 0.55in 0.55in 0.5in;
+    box-sizing: border-box;
+    background: #fff;
+    position: relative;
+    margin: 0 auto 0.3in;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; }
+    .page:last-child { page-break-after: auto; }
+  }
+
+  .head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 0.15in; border-bottom: 1px solid var(--border-1);
+    font-family: var(--font-mono); font-size: 8.5pt;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-3);
+  }
+  .head .num { color: var(--accent); font-weight: 700; }
+  .head .crumb { color: var(--fg-2); font-weight: 600; }
+  .body { flex: 1; padding-top: 0.22in; display: flex; flex-direction: column; min-height: 0; }
+  .foot {
+    display: flex; justify-content: space-between;
+    padding-top: 0.12in; border-top: 1px solid var(--border-1);
+    font-family: var(--font-mono); font-size: 7.5pt;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-4);
+  }
+
+  .kicker { font-family: var(--font-mono); font-size: 8.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-3); }
+  .title { font-family: var(--font-display); font-weight: 800; font-size: 28pt; line-height: 1; letter-spacing: 0.005em; text-transform: uppercase; color: var(--fg-1); margin: 0.08in 0 0.12in; }
+  .lede { font-size: 10.5pt; line-height: 1.55; color: var(--fg-2); max-width: 5.8in; margin-bottom: 0.25in; }
+  .note { font-size: 8.5pt; color: var(--fg-3); font-style: italic; margin-top: 0.12in; }
+
+  /* ---------------- Cover ---------------- */
+  .cover { padding: 1.2in 0.7in 0.8in; justify-content: space-between; }
+  .cover .mark { width: 0.9in; }
+  .cover .clabel { font-family: var(--font-mono); font-size: 10pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin: 0.35in 0 0.15in; }
+  .cover h1 { font-family: var(--font-display); font-weight: 800; font-size: 74pt; line-height: 0.92; letter-spacing: 0.005em; text-transform: uppercase; color: var(--fg-1); margin: 0; }
+  .cover h1 .red { color: var(--accent); }
+  .cover .sub { font-family: var(--font-display); font-weight: 500; font-size: 18pt; line-height: 1.15; color: var(--fg-2); margin-top: 0.3in; max-width: 6in; letter-spacing: 0.005em; text-transform: uppercase; }
+  .cover .meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4in; border-top: 1px solid var(--border-2); padding-top: 0.25in; font-family: var(--font-mono); font-size: 8.5pt; color: var(--fg-3); }
+  .cover .meta b { display: block; color: var(--fg-1); font-weight: 700; margin-bottom: 0.05in; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ---------------- TOC ---------------- */
+  .toc-section { margin-top: 0.22in; font-family: var(--font-mono); font-size: 9pt; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-3); }
+  .toc-row { display: grid; grid-template-columns: 0.35in 1fr 0.55in; padding: 0.08in 0; border-bottom: 1px dashed var(--border-2); align-items: baseline; }
+  .toc-row .n { font-family: var(--font-mono); color: var(--accent); font-weight: 700; font-size: 9.5pt; }
+  .toc-row .nm { font-family: var(--font-display); font-weight: 600; font-size: 14pt; text-transform: uppercase; letter-spacing: 0.01em; }
+  .toc-row .pg { text-align: right; font-family: var(--font-mono); color: var(--fg-3); font-size: 9pt; }
+
+  /* ---------------- Logo / Mark ---------------- */
+  .logo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border-2); border-radius: 4px; overflow: hidden; flex: 1; max-height: 4in; }
+  .logo-cell { display: flex; align-items: center; justify-content: center; position: relative; padding: 0.5in; }
+  .logo-cell.light { background: #fff; border-right: 1px solid var(--border-2); }
+  .logo-cell.dark { background: #343A40 !important; }
+  .logo-cell img { height: 0.7in; width: auto; }
+  .logo-cell .lbl { position: absolute; top: 0.12in; left: 0.15in; font: 700 8pt/1 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-3); }
+  .logo-cell.dark .lbl { color: #A6ADB6; }
+
+  .mark-block { display: flex; gap: 0.4in; align-items: center; padding: 0.4in; border: 1px solid var(--border-2); border-radius: 4px; }
+  .mark-block img { width: 1.3in; height: 1.3in; }
+  .mark-desc h3 { font-family: var(--font-display); font-weight: 700; font-size: 22pt; text-transform: uppercase; letter-spacing: 0.01em; margin: 0 0 0.06in; color: var(--fg-1); }
+
+  /* ---------------- Swatch grids ---------------- */
+  .swatch-row { display: grid; gap: 2px; margin-bottom: 0.14in; }
+  .swatch-row.n13 { grid-template-columns: repeat(13, 1fr); }
+  .swatch-row.n10 { grid-template-columns: repeat(10, 1fr); }
+  .swatch-row.n4  { grid-template-columns: repeat(4, 1fr); gap: 0.08in; }
+  .sw { border: 1px solid var(--border-2); border-radius: 2px; overflow: hidden; background: #fff; }
+  .sw .chip { height: 0.55in; }
+  .sw .nm { padding: 3pt 0 2pt; font-family: var(--font-mono); font-size: 7pt; text-align: center; color: var(--fg-2); background: #fff; line-height: 1.25; }
+  .sw .nm b { display: block; font-weight: 700; color: var(--fg-1); font-size: 7pt; letter-spacing: 0.02em; }
+  .sw .nm .hex { display: block; color: var(--fg-3); font-size: 6.5pt; letter-spacing: 0.02em; margin-top: 1pt; }
+  .sw .nm.inv { color: #fff; background: transparent; }
+  .sw .nm.inv b, .sw .nm.inv .hex { color: #fff; }
+
+  .status-cells .sw .chip { height: 0.6in; display: flex; align-items: center; gap: 0.08in; padding-left: 0.15in; color: #fff; font-family: var(--font-mono); font-size: 8.5pt; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+  .status-cells .sw .chip .d { width: 8px; height: 8px; border-radius: 99px; background: #fff; }
+
+  /* ---------------- Spec table ---------------- */
+  .spec { width: 100%; border-collapse: collapse; margin-top: 0.14in; font-family: var(--font-mono); font-size: 8pt; }
+  .spec th, .spec td { text-align: left; padding: 2.5pt 4pt; border-bottom: 1px solid var(--border-1); color: var(--fg-2); }
+  .spec th { color: var(--fg-3); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 7pt; }
+  .spec td.t { color: var(--fg-1); }
+  .spec td.v { color: var(--accent); }
+
+  /* ---------------- Type samples ---------------- */
+  .ts { padding: 0.15in 0; border-top: 1px solid var(--border-1); display: grid; grid-template-columns: 1in 1fr; gap: 0.2in; align-items: baseline; }
+  .ts:first-of-type { border-top: 0; padding-top: 0; }
+  .ts .meta { font-family: var(--font-mono); font-size: 7pt; color: var(--fg-3); letter-spacing: 0.06em; text-transform: uppercase; }
+  .ts .smp.display { font-family: var(--font-display); font-weight: 800; letter-spacing: 0.005em; text-transform: uppercase; color: var(--fg-1); line-height: 1; }
+  .ts .smp.body { color: var(--fg-1); line-height: 1.55; }
+  .ts .smp.mono { font-family: var(--font-mono); color: var(--fg-1); letter-spacing: -0.01em; }
+
+  /* ---------------- Buttons ---------------- */
+  .btn-row { display: flex; gap: 0.15in; flex-wrap: wrap; padding: 0.2in; background: var(--bg-0); border: 1px solid var(--border-2); border-radius: 4px; margin-bottom: 0.15in; }
+  .btn { display: inline-flex; align-items: center; gap: 0.08in; padding: 0.1in 0.2in; border-radius: 6px; font: 600 10.5pt/1 var(--font-sans); border: 1px solid transparent; cursor: default; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-secondary { background: var(--bg-card); color: var(--fg-1); border-color: var(--border-3); }
+  .btn-ghost { background: transparent; color: var(--fg-1); }
+  .btn-danger { background: #991B1B; color: #fff; }
+  .btn-sm { padding: 0.06in 0.14in; font-size: 9pt; }
+  .btn-lg { padding: 0.14in 0.26in; font-size: 12pt; }
+
+  /* ---------------- Inputs ---------------- */
+  .inp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.2in; margin-bottom: 0.18in; }
+  .field { display: flex; flex-direction: column; gap: 0.06in; }
+  .field label { font-size: 8.5pt; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-3); }
+  .inp { height: 0.36in; border: 1px solid var(--border-3); background: #fff; border-radius: 4px; padding: 0 0.12in; color: var(--fg-1); font-size: 10pt; display: flex; align-items: center; }
+  .inp.err { border-color: #B91C1C; }
+  .inp.readonly { background: var(--bg-2); }
+  .help { font-size: 8pt; color: var(--fg-4); }
+  .help.err { color: #B91C1C; }
+
+  /* ---------------- Cards ---------------- */
+  .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.15in; }
+  .pcard { background: var(--bg-card); border: 1px solid var(--border-2); border-radius: 8px; padding: 0.22in 0.25in; }
+  .pcard.elev { box-shadow: var(--shadow-2); border-color: transparent; }
+  .pc-eyebrow { font-size: 8pt; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.1in; }
+  .pc-title { font-family: var(--font-display); font-weight: 700; font-size: 16pt; line-height: 1.1; color: var(--fg-1); text-transform: uppercase; letter-spacing: 0.01em; margin-bottom: 0.08in; }
+  .pc-body { font-size: 9.5pt; color: var(--fg-2); line-height: 1.5; }
+  .pc-row { display: flex; justify-content: space-between; align-items: center; padding-top: 0.1in; margin-top: 0.14in; border-top: 1px solid var(--border-1); font-family: var(--font-mono); font-size: 8pt; color: var(--fg-3); }
+  .pc-readout { font-family: var(--font-mono); font-size: 18pt; color: var(--fg-1); font-weight: 500; letter-spacing: -0.01em; }
+  .pc-readout small { color: var(--fg-3); font-size: 9pt; margin-left: 4pt; }
+  .pill { display: inline-flex; align-items: center; gap: 5pt; font-size: 7.5pt; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 3pt 7pt; border-radius: 99px; background: #FEF3C7; color: #7C2D12; }
+  .pill .d { width: 5pt; height: 5pt; border-radius: 99px; background: #B45309; }
+
+  /* ---------------- Badges ---------------- */
+  .bd-row { display: flex; align-items: center; gap: 0.1in; flex-wrap: wrap; margin-bottom: 0.14in; }
+  .bd-cap { font-family: var(--font-mono); font-size: 7.5pt; color: var(--fg-3); width: 0.9in; letter-spacing: 0.06em; text-transform: uppercase; }
+  .bd { display: inline-flex; align-items: center; gap: 5pt; padding: 3pt 8pt 3pt 7pt; border-radius: 99px; font-size: 8pt; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; }
+  .bd .d { width: 6pt; height: 6pt; border-radius: 99px; }
+  .bd.pass { background: #DCFCE7; color: #14532D; } .bd.pass .d { background: #15803D; }
+  .bd.caut { background: #FEF3C7; color: #7C2D12; } .bd.caut .d { background: #B45309; }
+  .bd.alrm { background: #FEE2E2; color: #7F1D1D; } .bd.alrm .d { background: #B91C1C; }
+  .bd.info { background: #DBEAFE; color: #1E3A8A; } .bd.info .d { background: #1E40AF; }
+  .bd.solid.pass { background: #15803D; color: #fff; } .bd.solid.caut { background: #9A3412; color: #fff; }
+  .bd.solid.alrm { background: #991B1B; color: #fff; } .bd.solid.info { background: #1E40AF; color: #fff; }
+  .bd.solid .d { background: #fff; }
+  .bd.tag { background: var(--bg-2); color: var(--gray-11); border: 1px solid var(--border-2); font-weight: 600; letter-spacing: 0.04em; text-transform: none; }
+  .bd.trade { background: #FFE2E3; color: #7A1517; font-weight: 700; letter-spacing: 0.04em; text-transform: none; }
+  .chip-count { display: inline-flex; align-items: center; justify-content: center; min-width: 18pt; height: 16pt; padding: 0 6pt; border-radius: 99px; font-family: var(--font-mono); font-size: 8pt; font-weight: 700; line-height: 1; }
+  .chip-count.neutral { background: var(--bg-2); color: var(--gray-11); border: 1px solid var(--border-3); }
+  .chip-count.brand { background: var(--rdi-red-600); color: #fff; }
+  .chip-count.alarm { background: #991B1B; color: #fff; }
+  .chip-count.cyan { background: #075569; color: #fff; }
+
+  /* ---------------- Icons ---------------- */
+  .icon-grid { display: flex; gap: 6pt; flex-wrap: wrap; margin-bottom: 0.15in; }
+  .icon-chip { width: 32pt; height: 32pt; display: grid; place-items: center; border: 1px solid var(--border-2); border-radius: 4px; background: var(--bg-card); color: var(--fg-1); }
+  .icon-chip svg { width: 14pt; height: 14pt; stroke-width: 1.75; }
+
+  /* ---------------- Spacing ---------------- */
+  .space-row { display: grid; grid-template-columns: 0.6in 1fr 0.6in; gap: 0.12in; padding: 0.07in 0; border-bottom: 1px solid var(--border-1); align-items: center; }
+  .space-row .tk { font-family: var(--font-mono); font-size: 8.5pt; color: var(--fg-1); font-weight: 600; }
+  .space-row .bar { background: var(--rdi-red-500); height: 10pt; border-radius: 2px; }
+  .space-row .px { font-family: var(--font-mono); font-size: 8pt; color: var(--fg-3); text-align: right; }
+
+  /* ---------------- Radii / Shadows ---------------- */
+  .rs-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.1in; margin-bottom: 0.2in; }
+  .rs-cell { aspect-ratio: 1; background: var(--bg-2); border: 1px solid var(--border-2); display: grid; place-items: end; padding: 0.08in; font-family: var(--font-mono); font-size: 7.5pt; color: var(--fg-3); }
+  .rs-cell b { display: block; color: var(--fg-1); font-weight: 700; font-size: 8pt; }
+  .sh-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.15in; }
+  .sh-cell { background: #fff; padding: 0.28in 0.18in; border-radius: 6px; text-align: center; font-family: var(--font-mono); font-size: 8pt; color: var(--fg-2); }
+  .sh-cell b { display: block; color: var(--fg-1); font-weight: 700; margin-bottom: 3pt; }
+  .sh1 { box-shadow: 0 1px 2px rgba(20,24,29,0.06), 0 0 0 1px rgba(20,24,29,0.04); }
+  .sh2 { box-shadow: 0 4px 12px rgba(20,24,29,0.08); }
+  .sh3 { box-shadow: 0 16px 40px rgba(20,24,29,0.12); }
+  .sh-focus { border: 1px solid var(--accent); box-shadow: 0 0 0 3px rgba(186,37,40,0.18); }
+
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="page cover">
+  <div>
+    <img class="mark" src="../assets/brand-mark-iris.svg" alt="">
+    <div class="clabel">Brand & Product · Design System</div>
+    <h1>RDI<br><span class="red">Design<br>System</span></h1>
+    <div class="sub">The visual, typographic, and interaction foundation for Motion Amplification® products and marketing.</div>
+  </div>
+  <div class="meta">
+    <div><b>Version</b>2026.1</div>
+    <div><b>Owner</b>Brand & Product</div>
+    <div><b>Status</b>Approved</div>
+    <div><b>Pages</b>15</div>
+  </div>
+</section>
+
+<!-- ============ TOC ============ -->
+<section class="page">
+  <div class="head"><span class="num">00</span><span class="crumb">Table of Contents</span><span>P.02</span></div>
+  <div class="body">
+    <div class="kicker">Index</div>
+    <h1 class="title">Contents</h1>
+
+    <div class="toc-section">I · Foundations</div>
+    <div class="toc-row"><span class="n">01</span><span class="nm">Brand · Logo</span><span class="pg">03</span></div>
+    <div class="toc-row"><span class="n">02</span><span class="nm">Brand · Mark</span><span class="pg">04</span></div>
+    <div class="toc-row"><span class="n">03</span><span class="nm">Color · Neutrals</span><span class="pg">05</span></div>
+    <div class="toc-row"><span class="n">04</span><span class="nm">Color · Brand</span><span class="pg">06</span></div>
+    <div class="toc-row"><span class="n">05</span><span class="nm">Color · Status</span><span class="pg">07</span></div>
+
+    <div class="toc-section">II · Type</div>
+    <div class="toc-row"><span class="n">06</span><span class="nm">Display Type</span><span class="pg">08</span></div>
+    <div class="toc-row"><span class="n">07</span><span class="nm">Body & Mono Type</span><span class="pg">09</span></div>
+
+    <div class="toc-section">III · Spacing & Shape</div>
+    <div class="toc-row"><span class="n">08</span><span class="nm">Spacing Scale</span><span class="pg">10</span></div>
+    <div class="toc-row"><span class="n">09</span><span class="nm">Radius & Shadow</span><span class="pg">11</span></div>
+
+    <div class="toc-section">IV · Components</div>
+    <div class="toc-row"><span class="n">10</span><span class="nm">Buttons</span><span class="pg">12</span></div>
+    <div class="toc-row"><span class="n">11</span><span class="nm">Inputs</span><span class="pg">13</span></div>
+    <div class="toc-row"><span class="n">12</span><span class="nm">Cards</span><span class="pg">14</span></div>
+    <div class="toc-row"><span class="n">13</span><span class="nm">Badges & Status</span><span class="pg">15</span></div>
+    <div class="toc-row"><span class="n">14</span><span class="nm">Iconography</span><span class="pg">16</span></div>
+  </div>
+  <div class="foot"><span>RDI · Design System 2026.1</span><span>02</span></div>
+</section>
+
+<!-- ============ 01 LOGO ============ -->
+<section class="page">
+  <div class="head"><span class="num">01</span><span class="crumb">Foundations · Logo</span><span>P.03</span></div>
+  <div class="body">
+    <div class="kicker">Wordmark</div>
+    <h1 class="title">Logo</h1>
+    <p class="lede">The RDI wordmark is the primary brand identifier. Use the dark variant on backgrounds lighter than <code>#CED3DA</code>; use the reversed variant on backgrounds darker than <code>#545B64</code>. Never place the wordmark on the brand red.</p>
+    <div class="logo-grid">
+      <div class="logo-cell light"><span class="lbl">Light</span><img src="../assets/logo-rdi.png?v=2" alt=""></div>
+      <div class="logo-cell dark"><span class="lbl">Dark</span><img src="../assets/logo-rdi-white.png?v=2" alt=""></div>
+    </div>
+    <table class="spec">
+      <thead><tr><th>Variant</th><th>File</th><th>Min height</th><th>Clear space</th></tr></thead>
+      <tbody>
+        <tr><td class="t">Dark-on-light</td><td>logo-rdi.png</td><td>32px</td><td>½ × wordmark height</td></tr>
+        <tr><td class="t">Light-on-dark</td><td>logo-rdi-white.png</td><td>32px</td><td>½ × wordmark height</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span>RDI · Design System</span><span>03</span></div>
+</section>
+
+<!-- ============ 02 MARK ============ -->
+<section class="page">
+  <div class="head"><span class="num">02</span><span class="crumb">Foundations · Brand Mark</span><span>P.04</span></div>
+  <div class="body">
+    <div class="kicker">Glyph</div>
+    <h1 class="title">Iris Aperture</h1>
+    <p class="lede">The iris glyph is reserved for app icons, hero moments, and lockups. Never use it as an inline UI icon — its visual weight is too strong for a button or menu item.</p>
+    <div class="mark-block">
+      <img src="../assets/brand-mark-iris.svg" alt="">
+      <div class="mark-desc">
+        <h3>Iris Aperture</h3>
+        <p class="lede" style="max-width:3.5in;margin:0;">Reserved for logo lockups, app icons, hero plates, and splash moments. The glyph echoes the camera aperture that underlies Motion Amplification® — every pixel becomes a sensor.</p>
+      </div>
+    </div>
+    <div class="note">Minimum rendered size: 24px. Never outline, rotate, or recolor.</div>
+  </div>
+  <div class="foot"><span>RDI · Design System</span><span>04</span></div>
+</section>
+
+<!-- ============ 03 NEUTRALS ============ -->
+<section class="page">
+  <div class="head"><span class="num">03</span><span class="crumb">Foundations · Color · Neutrals</span><span>P.05</span></div>
+  <div class="body">
+    <div class="kicker">Palette · 13 stops</div>
+    <h1 class="title">Neutrals</h1>
+    <p class="lede">Paper whites and cool grays. Surfaces use gray-0–3; borders use 4–5; body text uses 9–11. Maximum dark-theme background floor is <code>#343A40</code>.</p>
+    <div class="swatch-row n13">
+      <div class="sw"><div class="chip" style="background:var(--gray-0);border:1px solid var(--border-2)"></div><div class="nm"><b>0</b><span class="hex">#FFFFFF</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--gray-1)"></div><div class="nm"><b>1</b><span class="hex">#FAFBFC</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--gray-2)"></div><div class="nm"><b>2</b><span class="hex">#F4F6F8</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--gray-3)"></div><div class="nm"><b>3</b><span class="hex">#EDF0F3</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--gray-4)"></div><div class="nm"><b>4</b><span class="hex">#E1E5EA</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--gray-5)"></div><div class="nm"><b>5</b><span class="hex">#CED3DA</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--gray-6)"></div><div class="nm"><b>6</b><span class="hex">#B0B7C0</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--gray-7)"></div><div class="nm"><b>7</b><span class="hex">#8A919B</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--gray-8)"></div><div class="nm"><b>8</b><span class="hex">#5F6773</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--gray-9)"></div><div class="nm"><b>9</b><span class="hex">#3D444D</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--gray-10)"></div><div class="nm"><b>10</b><span class="hex">#252A31</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--gray-11)"></div><div class="nm"><b>11</b><span class="hex">#14181D</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--gray-12)"></div><div class="nm"><b>12</b><span class="hex">#0A0C0F</span></div></div>
+    </div>
+    <table class="spec">
+      <thead><tr><th>Role</th><th>Tokens</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td class="t">Surface</td><td class="v">gray-0 · 1 · 2 · 3</td><td>Page, subtle, section, hover</td></tr>
+        <tr><td class="t">Border</td><td class="v">gray-4 · 5</td><td>Dividers, card strokes, inputs</td></tr>
+        <tr><td class="t">Text</td><td class="v">gray-8 · 9 · 11</td><td>Tertiary, body, headings</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span>RDI · Design System</span><span>05</span></div>
+</section>
+
+<!-- ============ 04 BRAND COLOR ============ -->
+<section class="page">
+  <div class="head"><span class="num">04</span><span class="crumb">Foundations · Color · Brand</span><span>P.06</span></div>
+  <div class="body">
+    <div class="kicker">Primary · RDI Red</div>
+    <h1 class="title">Brand Color</h1>
+    <p class="lede">RDI red is used <em>restrained</em>: CTAs, status alarms, small accents, one hero moment per view. The 500 stop is the true brand color; 600 is hover/press and for on-dark surfaces.</p>
+    <div class="swatch-row n10">
+      <div class="sw"><div class="chip" style="background:var(--rdi-red-50)"></div><div class="nm"><b>50</b><span class="hex">#FFF1F1</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--rdi-red-100)"></div><div class="nm"><b>100</b><span class="hex">#FFE2E3</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--rdi-red-200)"></div><div class="nm"><b>200</b><span class="hex">#FFC7C8</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--rdi-red-300)"></div><div class="nm"><b>300</b><span class="hex">#F59094</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--rdi-red-400)"></div><div class="nm"><b>400</b><span class="hex">#D95257</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--rdi-red-500)"></div><div class="nm inv" style="background:var(--rdi-red-500)"><b>500★</b><span class="hex">#BA2528</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--rdi-red-600)"></div><div class="nm"><b>600</b><span class="hex">#9B1C1F</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--rdi-red-700)"></div><div class="nm"><b>700</b><span class="hex">#7A1517</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--rdi-red-800)"></div><div class="nm"><b>800</b><span class="hex">#5A0E10</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--rdi-red-900)"></div><div class="nm"><b>900</b><span class="hex">#3A0709</span></div></div>
+    </div>
+    <div class="kicker" style="margin-top:0.22in">Secondary · Instrument Cyan</div>
+    <div class="swatch-row n10" style="margin-top:0.08in">
+      <div class="sw"><div class="chip" style="background:var(--cyan-50)"></div><div class="nm"><b>50</b><span class="hex">#F0FAFC</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--cyan-100)"></div><div class="nm"><b>100</b><span class="hex">#D9F2F7</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--cyan-200)"></div><div class="nm"><b>200</b><span class="hex">#AEE1EC</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--cyan-300)"></div><div class="nm"><b>300</b><span class="hex">#76C8DA</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--cyan-400)"></div><div class="nm"><b>400</b><span class="hex">#3BA6BF</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--cyan-500)"></div><div class="nm"><b>500</b><span class="hex">#1A86A1</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--cyan-600)"></div><div class="nm inv" style="background:var(--cyan-600)"><b>600★</b><span class="hex">#0F6A83</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--cyan-700)"></div><div class="nm"><b>700</b><span class="hex">#095265</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--cyan-800)"></div><div class="nm"><b>800</b><span class="hex">#063E4D</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--cyan-900)"></div><div class="nm"><b>900</b><span class="hex">#03272F</span></div></div>
+    </div>
+    <table class="spec">
+      <thead><tr><th>Token</th><th>Hex</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td class="t">--accent</td><td class="v">#BA2528</td><td>CTA, hero word, alarm</td></tr>
+        <tr><td class="t">--accent-hover</td><td class="v">#9B1C1F</td><td>Hover state</td></tr>
+        <tr><td class="t">--accent-2</td><td class="v">#0F6A83</td><td>Instrument readout, cyan counts</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span>RDI · Design System</span><span>06</span></div>
+</section>
+
+<!-- ============ 05 STATUS ============ -->
+<section class="page">
+  <div class="head"><span class="num">05</span><span class="crumb">Foundations · Color · Status</span><span>P.07</span></div>
+  <div class="body">
+    <div class="kicker">Signal Semantics</div>
+    <h1 class="title">Status Colors</h1>
+    <p class="lede">Status colors encode instrument-panel semantics: machines either run in spec, drift into caution, or trip an alarm. Never use these as brand accents.</p>
+    <div class="swatch-row n4 status-cells">
+      <div class="sw"><div class="chip" style="background:#16A34A"><span class="d"></span>In spec</div><div class="nm"><b>--status-pass</b><span class="hex">#16A34A</span></div></div>
+      <div class="sw"><div class="chip" style="background:#D97706"><span class="d"></span>Caution</div><div class="nm"><b>--status-caution</b><span class="hex">#D97706</span></div></div>
+      <div class="sw"><div class="chip" style="background:#DC2626"><span class="d"></span>Alarm</div><div class="nm"><b>--status-alarm</b><span class="hex">#DC2626</span></div></div>
+      <div class="sw"><div class="chip" style="background:#2563EB"><span class="d"></span>Info</div><div class="nm"><b>--status-info</b><span class="hex">#2563EB</span></div></div>
+    </div>
+    <table class="spec">
+      <thead><tr><th>Token</th><th>Use</th><th>Foreground ink</th></tr></thead>
+      <tbody>
+        <tr><td class="t">--status-pass</td><td>In spec, healthy, confirmed</td><td>#fff or #14532D on tint</td></tr>
+        <tr><td class="t">--status-caution</td><td>Drifting, review needed</td><td>#fff or #7C2D12 on tint</td></tr>
+        <tr><td class="t">--status-alarm</td><td>Trip, immediate attention</td><td>#fff or #7F1D1D on tint</td></tr>
+        <tr><td class="t">--status-info</td><td>Informational, neutral</td><td>#fff or #1E3A8A on tint</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span>RDI · Design System</span><span>07</span></div>
+</section>
+
+<!-- ============ 06 DISPLAY TYPE ============ -->
+<section class="page">
+  <div class="head"><span class="num">06</span><span class="crumb">Type · Display</span><span>P.08</span></div>
+  <div class="body">
+    <div class="kicker">Barlow Condensed</div>
+    <h1 class="title">Display Type</h1>
+    <p class="lede">Condensed, confident, mechanical. Used uppercase for hero moments, page titles, and section headers. Never use for body copy.</p>
+    <div class="ts"><div class="meta">Hero · 96pt · 800</div><div class="smp display" style="font-size:60pt">Visualize Motion</div></div>
+    <div class="ts"><div class="meta">H1 · 60pt · 700</div><div class="smp display" style="font-size:40pt;font-weight:700">Find the root cause</div></div>
+    <div class="ts"><div class="meta">H2 · 40pt · 700</div><div class="smp display" style="font-size:28pt;font-weight:700">Pump-04B analysis</div></div>
+    <div class="ts"><div class="meta">H3 · 24pt · 600</div><div class="smp display" style="font-size:18pt;font-weight:600">Motor DE bearing</div></div>
+    <div class="ts"><div class="meta">Eyebrow · 10pt · 700</div><div class="smp display" style="font-size:10pt;font-weight:700;letter-spacing:0.14em;color:var(--accent)">Motion Amplification®</div></div>
+    <table class="spec">
+      <thead><tr><th>Class</th><th>Weight</th><th>Case</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td class="t">rdi-hero</td><td class="v">800</td><td>Upper</td><td>Landing hero word</td></tr>
+        <tr><td class="t">rdi-h1/h2/h3</td><td class="v">700 / 700 / 600</td><td>Upper</td><td>Page/section titles</td></tr>
+        <tr><td class="t">rdi-eyebrow</td><td class="v">700</td><td>Upper · 0.14em tracking</td><td>Kicker above titles</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span>RDI · Design System</span><span>08</span></div>
+</section>
+
+<!-- ============ 07 BODY + MONO ============ -->
+<section class="page">
+  <div class="head"><span class="num">07</span><span class="crumb">Type · Body & Mono</span><span>P.09</span></div>
+  <div class="body">
+    <div class="kicker">Inter · JetBrains Mono</div>
+    <h1 class="title">Body & Data</h1>
+    <p class="lede">Inter carries every non-display word. JetBrains Mono carries every measurement, timestamp, and token reference.</p>
+    <div class="ts"><div class="meta">Body L · 18pt · 400</div><div class="smp body" style="font-size:14pt">Motion Amplification® reveals what accelerometers can't: the shape of a fault.</div></div>
+    <div class="ts"><div class="meta">Body · 15pt · 400</div><div class="smp body" style="font-size:11pt">Every pixel becomes a vibration sensor. Record once, analyze forever — assets, modes, and zones in a single scene.</div></div>
+    <div class="ts"><div class="meta">Caption · 12pt · 500</div><div class="smp body" style="font-size:9pt;color:var(--fg-3)">Source: Field data, Pump-04B, April 14 2026</div></div>
+    <div class="ts"><div class="meta">Mono Readout · 24pt</div><div class="smp mono" style="font-size:22pt;font-weight:500">0.0834 <span style="color:var(--fg-3);font-size:10pt">mils pk-pk</span></div></div>
+    <div class="ts"><div class="meta">Mono Label · 11pt</div><div class="smp mono" style="font-size:9pt;letter-spacing:0.06em;text-transform:uppercase;color:var(--fg-3)">241.6 HZ · ISO 10816 CLASS II</div></div>
+    <table class="spec">
+      <thead><tr><th>Family</th><th>Use</th><th>Features</th></tr></thead>
+      <tbody>
+        <tr><td class="t">Inter</td><td>Body, UI, labels</td><td>ss01, cv11, calt · tabular-nums for data</td></tr>
+        <tr><td class="t">JetBrains Mono</td><td>Readouts, tokens, timestamps</td><td>Always tabular; negative letter-spacing for readouts</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span>RDI · Design System</span><span>09</span></div>
+</section>
+
+<!-- ============ 08 SPACING ============ -->
+<section class="page">
+  <div class="head"><span class="num">08</span><span class="crumb">Shape · Spacing</span><span>P.10</span></div>
+  <div class="body">
+    <div class="kicker">4-point baseline</div>
+    <h1 class="title">Spacing Scale</h1>
+    <p class="lede">A 4-point geometric scale. Steps 1–3 live inside components; 4–7 compose sections; 8+ orchestrate page rhythm.</p>
+    <div class="space-row"><span class="tk">--s-1</span><span class="bar" style="width:4px"></span><span class="px">4px</span></div>
+    <div class="space-row"><span class="tk">--s-2</span><span class="bar" style="width:8px"></span><span class="px">8px</span></div>
+    <div class="space-row"><span class="tk">--s-3</span><span class="bar" style="width:12px"></span><span class="px">12px</span></div>
+    <div class="space-row"><span class="tk">--s-4</span><span class="bar" style="width:16px"></span><span class="px">16px</span></div>
+    <div class="space-row"><span class="tk">--s-5</span><span class="bar" style="width:24px"></span><span class="px">24px</span></div>
+    <div class="space-row"><span class="tk">--s-6</span><span class="bar" style="width:32px"></span><span class="px">32px</span></div>
+    <div class="space-row"><span class="tk">--s-7</span><span class="bar" style="width:48px"></span><span class="px">48px</span></div>
+    <div class="space-row"><span class="tk">--s-8</span><span class="bar" style="width:64px"></span><span class="px">64px</span></div>
+    <div class="space-row"><span class="tk">--s-9</span><span class="bar" style="width:96px"></span><span class="px">96px</span></div>
+    <div class="space-row"><span class="tk">--s-10</span><span class="bar" style="width:128px"></span><span class="px">128px</span></div>
+    <div class="space-row"><span class="tk">--s-section</span><span class="bar" style="width:180px;background:repeating-linear-gradient(45deg,var(--rdi-red-500) 0 6px,var(--rdi-red-700) 6px 12px)"></span><span class="px">128+px</span></div>
+    <div class="note">Never invent intermediate values. Compose larger gaps from stacked tokens. <code>--s-section</code> is a composition token (128px+) reserved for vertical rhythm between marketing sections.</div>
+  </div>
+  <div class="foot"><span>RDI · Design System</span><span>10</span></div>
+</section>
+
+<!-- ============ 09 RADIUS + SHADOW ============ -->
+<section class="page">
+  <div class="head"><span class="num">09</span><span class="crumb">Shape · Radius & Shadow</span><span>P.11</span></div>
+  <div class="body">
+    <div class="kicker">Corners & Elevation</div>
+    <h1 class="title">Radius & Shadow</h1>
+    <p class="lede">Radii stay tight. Data surfaces use 2–4px; cards use 6–8px; marketing surfaces may go up to 14px. Shadows are layered and restrained — we rely on hairline borders, not lift.</p>
+    <div class="rs-grid">
+      <div class="rs-cell" style="border-radius:0"><span><b>r-0</b>0px</span></div>
+      <div class="rs-cell" style="border-radius:3px"><span><b>r-1</b>3px</span></div>
+      <div class="rs-cell" style="border-radius:6px"><span><b>r-2</b>6px</span></div>
+      <div class="rs-cell" style="border-radius:10px"><span><b>r-3</b>10px</span></div>
+      <div class="rs-cell" style="border-radius:14px"><span><b>r-4</b>14px</span></div>
+      <div class="rs-cell" style="border-radius:999px"><span><b>r-full</b>pill</span></div>
+    </div>
+    <div class="kicker" style="margin-bottom:0.1in">Elevation</div>
+    <div class="sh-grid">
+      <div class="sh-cell sh1"><b>shadow-1</b><span style="color:var(--fg-4)">hairline<br>inline cards</span></div>
+      <div class="sh-cell sh2"><b>shadow-2</b><span style="color:var(--fg-4)">card lift<br>surface &amp; menus</span></div>
+      <div class="sh-cell sh3"><b>shadow-3</b><span style="color:var(--fg-4)">modal<br>overlay &amp; sheet</span></div>
+      <div class="sh-cell sh-focus"><b>focus</b><span style="color:var(--fg-4)">keyboard ring<br>accent @ 18%</span></div>
+    </div>
+    <table class="spec">
+      <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td class="t">--r-0</td><td class="v">0</td><td>Data tables, precise grids</td></tr>
+        <tr><td class="t">--r-1 / r-2</td><td class="v">3 / 6</td><td>Inputs, chips, instrument surfaces</td></tr>
+        <tr><td class="t">--r-3 / r-4</td><td class="v">10 / 14</td><td>Cards, modals, marketing surfaces</td></tr>
+        <tr><td class="t">--r-full</td><td class="v">999</td><td>Pills, badges, status dots</td></tr>
+        <tr><td class="t">--shadow-focus</td><td class="v">0 0 0 3px rgba(186,37,40,.18)</td><td>Keyboard focus ring — paired with accent border</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span>RDI · Design System</span><span>11</span></div>
+</section>
+
+<!-- ============ 10 BUTTONS ============ -->
+<section class="page">
+  <div class="head"><span class="num">10</span><span class="crumb">Components · Buttons</span><span>P.12</span></div>
+  <div class="body">
+    <div class="kicker">Actions</div>
+    <h1 class="title">Buttons</h1>
+    <p class="lede">One primary per view. Secondary for lateral actions. Ghost for tertiary. Danger is reserved for destructive flows; use sparingly.</p>
+    <div class="btn-row"><span class="bd-cap" style="width:0.8in;font-family:var(--font-mono);font-size:7.5pt;color:var(--fg-3);letter-spacing:0.06em;text-transform:uppercase">Primary</span><span class="btn btn-primary btn-sm">Request</span><span class="btn btn-primary">Request a demo</span><span class="btn btn-primary btn-lg">Request a demo</span></div>
+    <div class="btn-row"><span class="bd-cap" style="width:0.8in;font-family:var(--font-mono);font-size:7.5pt;color:var(--fg-3);letter-spacing:0.06em;text-transform:uppercase">Secondary</span><span class="btn btn-secondary btn-sm">Download PDF</span><span class="btn btn-secondary">Download PDF</span><span class="btn btn-secondary btn-lg">Download PDF</span></div>
+    <div class="btn-row"><span class="bd-cap" style="width:0.8in;font-family:var(--font-mono);font-size:7.5pt;color:var(--fg-3);letter-spacing:0.06em;text-transform:uppercase">Ghost</span><span class="btn btn-ghost btn-sm">Learn more</span><span class="btn btn-ghost">Learn more</span><span class="btn btn-ghost btn-lg">Learn more</span></div>
+    <div class="btn-row"><span class="bd-cap" style="width:0.8in;font-family:var(--font-mono);font-size:7.5pt;color:var(--fg-3);letter-spacing:0.06em;text-transform:uppercase">Danger</span><span class="btn btn-danger btn-sm">Delete</span><span class="btn btn-danger">Delete asset</span><span class="btn btn-danger btn-lg">Delete asset</span></div>
+    <div class="btn-row" style="background:transparent;border:0;padding:0"><span class="bd-cap" style="width:0.8in;font-family:var(--font-mono);font-size:7.5pt;color:var(--fg-3);letter-spacing:0.06em;text-transform:uppercase">Link</span><span style="color:var(--accent);font-weight:600;font-size:10.5pt">See how it works &nbsp;→</span></div>
+    <table class="spec">
+      <thead><tr><th>Variant</th><th>Background</th><th>Text</th><th>Hover</th><th>Sizes</th></tr></thead>
+      <tbody>
+        <tr><td class="t">Primary</td><td class="v">--accent</td><td>#fff</td><td>--accent-hover</td><td>sm / default / lg</td></tr>
+        <tr><td class="t">Secondary</td><td class="v">--bg-card</td><td>--fg-1</td><td>--bg-2 · border-3</td><td>sm / default / lg</td></tr>
+        <tr><td class="t">Ghost</td><td class="v">transparent</td><td>--fg-1</td><td>--bg-2</td><td>sm / default / lg</td></tr>
+        <tr><td class="t">Danger</td><td class="v">#991B1B</td><td>#fff</td><td>#7F1D1D</td><td>sm / default / lg</td></tr>
+        <tr><td class="t">Link</td><td class="v">transparent</td><td>--accent</td><td>underline</td><td>inline</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span>RDI · Design System</span><span>12</span></div>
+</section>
+
+<!-- ============ 11 INPUTS ============ -->
+<section class="page">
+  <div class="head"><span class="num">11</span><span class="crumb">Components · Inputs</span><span>P.13</span></div>
+  <div class="body">
+    <div class="kicker">Forms</div>
+    <h1 class="title">Inputs</h1>
+    <p class="lede">40px height baseline, hairline border, 4px radius. Focus is communicated with the brand accent plus a soft ring — never a color fill.</p>
+    <div class="inp-row">
+      <div class="field"><label>Asset name</label><div class="inp">Motor DE Bearing</div><span class="help">Used across reports and analyses</span></div>
+      <div class="field"><label>Sample rate</label><div class="inp">1400 FPS</div><span class="help">Camera capture frequency</span></div>
+    </div>
+    <div class="inp-row">
+      <div class="field"><label>Email</label><div class="inp err">name@company.com</div><span class="help err">Enter a valid corporate email address.</span></div>
+      <div class="field"><label>License key</label><div class="inp readonly">RDI-MX-24-8F3A-2026</div><span class="help">Read-only · provisioned at activation</span></div>
+    </div>
+    <table class="spec">
+      <thead><tr><th>State</th><th>Border</th><th>Background</th></tr></thead>
+      <tbody>
+        <tr><td class="t">Default</td><td class="v">--border-3</td><td>#fff</td></tr>
+        <tr><td class="t">Focus</td><td class="v">--accent</td><td>#fff · shadow-focus</td></tr>
+        <tr><td class="t">Error</td><td class="v">#B91C1C</td><td>#fff</td></tr>
+        <tr><td class="t">Read-only</td><td class="v">--border-3</td><td>--bg-2</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span>RDI · Design System</span><span>13</span></div>
+</section>
+
+<!-- ============ 12 CARDS ============ -->
+<section class="page">
+  <div class="head"><span class="num">12</span><span class="crumb">Components · Cards</span><span>P.14</span></div>
+  <div class="body">
+    <div class="kicker">Surfaces</div>
+    <h1 class="title">Cards</h1>
+    <p class="lede">Cards house a single unit of thought — a product, an asset reading, a case. The elevated variant is reserved for live data and notifications.</p>
+    <div class="cards-grid">
+      <div class="pcard">
+        <div class="pc-eyebrow">Product</div>
+        <div class="pc-title">Iris aiOne™</div>
+        <div class="pc-body">One platform unifying Motion Amplification®, TrueSight analytics, and condition monitoring.</div>
+        <div class="pc-row"><span>Flagship · 2026</span><span style="color:var(--accent)">Learn more →</span></div>
+      </div>
+      <div class="pcard elev">
+        <div class="pc-eyebrow" style="color:var(--fg-3)">Asset · Pump-04B</div>
+        <div class="pc-readout">0.0834<small>mils pk-pk</small></div>
+        <div class="pc-body" style="margin-top:0.08in;">Motor DE bearing · peak 241.6 Hz · ISO 10816 Class II</div>
+        <div class="pc-row"><span class="pill"><span class="d"></span>Caution</span><span>updated 00:00:12 ago</span></div>
+      </div>
+    </div>
+    <table class="spec">
+      <thead><tr><th>Variant</th><th>Use</th><th>Key tokens</th></tr></thead>
+      <tbody>
+        <tr><td class="t">Default</td><td>Marketing products, content</td><td class="v">r-3 · border-2 · shadow-1</td></tr>
+        <tr><td class="t">Elevated</td><td>Live data, notifications</td><td class="v">r-3 · shadow-2 · borderless</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span>RDI · Design System</span><span>14</span></div>
+</section>
+
+<!-- ============ 13 BADGES ============ -->
+<section class="page">
+  <div class="head"><span class="num">13</span><span class="crumb">Components · Badges & Status</span><span>P.15</span></div>
+  <div class="body">
+    <div class="kicker">Signal Chips</div>
+    <h1 class="title">Badges & Status</h1>
+    <p class="lede">All status variants meet WCAG AA on both tint and solid fills. Tints for scan-friendly reading; solids for emphatic calls.</p>
+    <div class="bd-row"><span class="bd-cap">Status · tint</span><span class="bd pass"><span class="d"></span>In spec</span><span class="bd caut"><span class="d"></span>Caution</span><span class="bd alrm"><span class="d"></span>Alarm</span><span class="bd info"><span class="d"></span>Info</span></div>
+    <div class="bd-row"><span class="bd-cap">Status · solid</span><span class="bd solid pass"><span class="d"></span>In spec</span><span class="bd solid caut"><span class="d"></span>Caution</span><span class="bd solid alrm"><span class="d"></span>Alarm</span><span class="bd solid info"><span class="d"></span>Info</span></div>
+    <div class="bd-row"><span class="bd-cap">Tags</span><span class="bd tag">Aerospace</span><span class="bd tag">Wastewater</span><span class="bd tag">Power Gen</span><span class="bd tag">Oil &amp; Gas</span></div>
+    <div class="bd-row"><span class="bd-cap">Trademark</span><span class="bd trade">Motion Amplification®</span><span class="bd trade">TrueSight™</span><span class="bd trade">Iris aiOne™</span></div>
+    <div class="bd-row"><span class="bd-cap">Counts</span><span class="chip-count neutral">14</span><span class="chip-count neutral">128</span><span class="chip-count brand">3 new</span><span class="chip-count alarm">3 alarms</span><span class="chip-count cyan">241.6 Hz</span></div>
+    <div class="note">Tabular numerals in all counts. Minimum contrast: 4.5:1 for 11pt, 7:1 target on data surfaces.</div>
+  </div>
+  <div class="foot"><span>RDI · Design System</span><span>15</span></div>
+</section>
+
+<!-- ============ 14 ICONOGRAPHY ============ -->
+<section class="page">
+  <div class="head"><span class="num">14</span><span class="crumb">Components · Iconography</span><span>P.16</span></div>
+  <div class="body">
+    <div class="kicker">Lucide · 1.75px stroke</div>
+    <h1 class="title">Iconography</h1>
+    <p class="lede">Lucide is the sole icon family. Monochromatic, 1.75px stroke, 18px default. Never mix with emoji. Never recolor beyond the current-color inheritance.</p>
+    <div class="icon-grid">
+      <!-- 12 inline SVG icons drawn to Lucide spec -->
+      <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+      <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg></div>
+      <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2 2 2 4 2"/><path d="M2 12c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2 2 2 4 2"/><path d="M2 18c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2 2 2 4 2"/></svg></div>
+      <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.5 0 4.8 1 6.5 2.6"/><path d="M21 3v6h-6"/></svg></div>
+      <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+      <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+      <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg></div>
+      <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+      <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+      <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+      <div class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+    </div>
+    <table class="spec">
+      <thead><tr><th>Size</th><th>Pixel</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td class="t">Inline</td><td class="v">14px</td><td>Inside body text</td></tr>
+        <tr><td class="t">Default</td><td class="v">18px</td><td>UI buttons, menus, cards</td></tr>
+        <tr><td class="t">Feature</td><td class="v">24px</td><td>Section leads, empty states</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span>RDI · Design System</span><span>16</span></div>
+</section>
+
+</body>
+</html>

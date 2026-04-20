@@ -1,0 +1,412 @@
+/* ==========================================================================
+   RDI Technologies Design System — Tokens
+   Light-first, ui.com-inspired. Generous whitespace, hairline borders,
+   restrained color, confident small type.
+   Dark theme available via [data-theme="dark"] for the TrueSight product UI.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  /* ======================================================================
+     COLORS — raw palette
+     ====================================================================== */
+
+  /* Neutrals — paper whites & cool grays (ui.com feel) */
+  --gray-0:  #FFFFFF;
+  --gray-1:  #FAFBFC;   /* page bg, subtle tint */
+  --gray-2:  #F4F6F8;   /* section alt */
+  --gray-3:  #EDF0F3;   /* card bg alt / hover */
+  --gray-4:  #E1E5EA;   /* divider strong */
+  --gray-5:  #CED3DA;   /* divider softer */
+  --gray-6:  #B0B7C0;   /* disabled text */
+  --gray-7:  #8A919B;   /* tertiary text */
+  --gray-8:  #5F6773;   /* secondary text */
+  --gray-9:  #3D444D;   /* body */
+  --gray-10: #252A31;   /* primary text */
+  --gray-11: #14181D;   /* headings */
+  --gray-12: #0A0C0F;   /* near-black */
+  --white:   #FFFFFF;
+
+  /* Brand — RDI red (real brand value, used restrained) */
+  --rdi-red-50:  #FFF1F1;
+  --rdi-red-100: #FFE2E3;
+  --rdi-red-200: #FFC7C8;
+  --rdi-red-300: #F59094;
+  --rdi-red-400: #D95257;
+  --rdi-red-500: #BA2528;   /* primary — real brand red from logo */
+  --rdi-red-600: #9B1C1F;
+  --rdi-red-700: #7A1517;
+  --rdi-red-800: #5A0E10;
+  --rdi-red-900: #3A0709;
+
+  /* Instrument cyan — for measurement readouts only */
+  --cyan-50:  #F0FAFC;
+  --cyan-100: #D9F2F7;
+  --cyan-200: #AEE1EC;
+  --cyan-300: #76C8DA;
+  --cyan-400: #3BA6BF;
+  --cyan-500: #1A86A1;   /* secondary accent (for data HUDs) */
+  --cyan-600: #0F6A83;
+  --cyan-700: #095265;
+  --cyan-800: #063E4D;
+  --cyan-900: #03272F;
+
+  /* Semantic status */
+  --green-400: #4ADE80;
+  --green-500: #16A34A;
+  --green-600: #15803D;
+
+  --amber-400: #FBBF24;
+  --amber-500: #D97706;
+  --amber-600: #B45309;
+
+  --red-500:   #DC2626;
+  --red-600:   #B91C1C;
+
+  --blue-500:  #2563EB;
+
+  /* ======================================================================
+     SEMANTIC COLORS — LIGHT (default / primary)
+     ====================================================================== */
+
+  --bg-0: var(--gray-0);         /* page */
+  --bg-1: var(--gray-1);         /* subtle */
+  --bg-2: var(--gray-2);         /* section */
+  --bg-3: var(--gray-3);         /* card hover / nested */
+  --bg-4: var(--gray-4);         /* raised divider */
+  --bg-card: var(--white);
+  --bg-input: var(--white);
+
+  --fg-1: var(--gray-11);        /* primary text / headlines */
+  --fg-2: var(--gray-9);         /* body */
+  --fg-3: var(--gray-8);         /* secondary */
+  --fg-4: var(--gray-7);         /* tertiary / hint */
+  --fg-5: var(--gray-6);         /* disabled */
+  --fg-inverse: var(--white);
+
+  --border-1: #EDF0F3;           /* hairline divider */
+  --border-2: #E1E5EA;           /* standard */
+  --border-3: #CED3DA;           /* input */
+  --border-strong: #B0B7C0;
+  --border-focus: var(--rdi-red-500);
+
+  --accent: var(--rdi-red-500);
+  --accent-hover: var(--rdi-red-600);
+  --accent-press: var(--rdi-red-700);
+  --accent-fg: var(--white);
+  --accent-soft: var(--rdi-red-50);
+
+  --accent-2: var(--cyan-600);
+  --accent-2-hover: var(--cyan-500);
+
+  --status-pass: var(--green-500);
+  --status-caution: var(--amber-500);
+  --status-alarm: var(--red-500);
+  --status-info: var(--blue-500);
+
+  /* ======================================================================
+     TYPOGRAPHY
+     ====================================================================== */
+
+  --font-display: 'Barlow Condensed', 'Oswald', 'Arial Narrow', sans-serif;
+  --font-sans:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  --fs-xs:   11px;
+  --fs-sm:   13px;
+  --fs-base: 15px;
+  --fs-md:   17px;
+  --fs-lg:   20px;
+  --fs-xl:   24px;
+  --fs-2xl:  32px;
+  --fs-3xl:  44px;
+  --fs-4xl:  60px;
+  --fs-5xl:  80px;
+  --fs-6xl:  112px;
+
+  --lh-tight:   1.05;
+  --lh-snug:    1.2;
+  --lh-normal:  1.5;
+  --lh-relaxed: 1.65;
+
+  --ls-hero:   0.01em;
+  --ls-caps:   0.08em;
+  --ls-normal: 0;
+  --ls-tight: -0.015em;
+
+  /* ======================================================================
+     SPACING — 4pt base
+     ====================================================================== */
+  --sp-0:   0;
+  --sp-1:   4px;
+  --sp-2:   8px;
+  --sp-3:   12px;
+  --sp-4:   16px;
+  --sp-5:   24px;
+  --sp-6:   32px;
+  --sp-7:   48px;
+  --sp-8:   64px;
+  --sp-9:   96px;
+  --sp-10: 128px;
+
+  /* ======================================================================
+     RADIUS — tighter overall, ui.com feel
+     ====================================================================== */
+  --r-0:    0;
+  --r-1:    3px;
+  --r-2:    6px;
+  --r-3:    10px;
+  --r-4:   14px;
+  --r-full: 999px;
+
+  /* ======================================================================
+     SHADOWS — very subtle; light-theme tuned
+     ====================================================================== */
+  --shadow-1: 0 1px 2px rgba(15, 23, 42, 0.04), 0 0 0 1px rgba(15, 23, 42, 0.04);
+  --shadow-2: 0 4px 16px -4px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.04);
+  --shadow-3: 0 24px 60px -12px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(15, 23, 42, 0.05);
+  --shadow-focus: 0 0 0 3px rgba(186, 37, 40, 0.18);
+  --ring-focus: 0 0 0 3px rgba(186, 37, 40, 0.18);
+
+  /* ======================================================================
+     MOTION
+     ====================================================================== */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --dur-fast:   120ms;
+  --dur-normal: 220ms;
+  --dur-slow:   420ms;
+
+  /* ======================================================================
+     LAYOUT
+     ====================================================================== */
+  --nav-h: 68px;
+  --container-max: 1360px;
+  --grid-gutter: 24px;
+}
+
+/* ======================================================================
+   DARK THEME — reserved for TrueSight product UI
+   ====================================================================== */
+[data-theme="dark"] {
+  /* Graphite ramp — floor = #343A40 (WCAG-friendly). No deeper than this. */
+  --bg-0: #343A40;   /* base surface — MAX darkness */
+  --bg-1: #3A4046;   /* subtle */
+  --bg-2: #41474E;   /* section */
+  --bg-3: #4A5058;   /* raised / hover */
+  --bg-4: #545B64;   /* strong surface */
+  --bg-card: #3A4046;
+  --bg-input: #41474E;
+
+  --fg-1: #F7F9FB;
+  --fg-2: #DFE3E8;
+  --fg-3: #A6ADB6;
+  --fg-4: #7E8690;
+  --fg-5: #636A74;
+
+  --border-1: #454B53;
+  --border-2: #545B64;
+  --border-3: #6A717B;
+
+  --accent: #F08589;
+  --accent-hover: #F59094;
+  --accent-soft: rgba(240, 133, 137, 0.18);
+
+  --accent-2: #5EC2D9;
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.30);
+  --shadow-3: 0 16px 40px rgba(0, 0, 0, 0.38);
+}
+
+/* ======================================================================
+   BASE
+   ====================================================================== */
+
+html, body {
+  font-family: var(--font-sans);
+  color: var(--fg-1);
+  background: var(--bg-0);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ======================================================================
+   SEMANTIC TYPE CLASSES
+   ====================================================================== */
+
+.rdi-hero {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(56px, 9vw, var(--fs-6xl));
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-hero);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+
+.rdi-h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-4xl);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-hero);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+
+.rdi-h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-3xl);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-hero);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+
+.rdi-h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-2xl);
+  line-height: var(--lh-snug);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--fg-1);
+}
+
+.rdi-h4 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--fs-xl);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--fg-1);
+}
+
+.rdi-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--fs-xs);
+  line-height: 1;
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+.rdi-lead {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--fs-lg);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-2);
+}
+
+.rdi-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--fs-base);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-2);
+}
+
+.rdi-small {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--fg-3);
+}
+
+.rdi-mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-2);
+}
+
+.rdi-stat {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-5xl);
+  line-height: 1;
+  letter-spacing: var(--ls-tight);
+  color: var(--fg-1);
+  font-feature-settings: 'tnum';
+}
+
+.rdi-measurement {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  color: var(--cyan-600);
+}
+
+/* ======================================================================
+   BUTTON
+   ====================================================================== */
+
+.rdi-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.02em;
+  border-radius: var(--r-2);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out);
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+.rdi-btn:hover  { background: var(--accent-hover); }
+.rdi-btn:active { background: var(--accent-press); }
+.rdi-btn:focus-visible { outline: none; box-shadow: var(--ring-focus); }
+
+.rdi-btn--ghost {
+  background: var(--bg-0);
+  color: var(--fg-1);
+  border-color: var(--border-2);
+}
+.rdi-btn--ghost:hover  { background: var(--bg-2); border-color: var(--border-3); }
+.rdi-btn--ghost:active { background: var(--bg-3); }
+
+.rdi-btn--secondary {
+  background: var(--bg-2);
+  color: var(--fg-1);
+}
+.rdi-btn--secondary:hover  { background: var(--bg-3); }
+
+.rdi-btn--link {
+  background: transparent;
+  color: var(--fg-1);
+  padding: 6px 0;
+  border: none;
+  border-bottom: 1px solid var(--accent);
+  border-radius: 0;
+}
+.rdi-btn--link:hover  { color: var(--accent); background: transparent; }
+
+/* ======================================================================
+   UTILITY
+   ====================================================================== */
+.rdi-divider  { height: 1px; background: var(--border-1); border: 0; }
+.rdi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-3);
+}
+.rdi-dot-grid {
+  background-image: radial-gradient(rgba(15,23,42,0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}

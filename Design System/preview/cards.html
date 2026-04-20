@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Cards</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 22px; background: var(--bg-1); font-family: var(--font-sans); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .card { background: var(--bg-card); border: 1px solid var(--border-2); border-radius: var(--r-3); padding: 18px 20px; box-shadow: var(--shadow-1); }
+  .card-elev { box-shadow: var(--shadow-2); border-color: transparent; }
+  .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .title { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 1.1; color: var(--fg-1); text-transform: uppercase; letter-spacing: 0.01em; margin-bottom: 8px; }
+  .body { font-size: 13px; color: var(--fg-2); line-height: 1.55; }
+  .row { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; margin-top: 14px; border-top: 1px solid var(--border-1); font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); }
+  .readout { font-family: var(--font-mono); font-size: 24px; color: var(--fg-1); font-weight: 500; letter-spacing: -0.01em; }
+  .readout small { color: var(--fg-3); font-size: 12px; margin-left: 4px; }
+  .status { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--status-caution); padding: 4px 8px; background: rgba(217,119,6,0.10); border-radius: 99px; }
+  .status .dot { width: 6px; height: 6px; border-radius: 99px; background: var(--status-caution); }
+</style></head>
+<body>
+  <div class="grid">
+    <div class="card">
+      <div class="eyebrow">Product</div>
+      <div class="title">Iris aiOne™</div>
+      <div class="body">One platform unifying Motion Amplification®, TrueSight analytics, and condition monitoring.</div>
+      <div class="row"><span>Flagship · 2026</span><span style="color:var(--accent)">Learn more →</span></div>
+    </div>
+    <div class="card card-elev">
+      <div class="eyebrow" style="color:var(--fg-3)">Asset · Pump-04B</div>
+      <div class="readout">0.0834<small>mils pk-pk</small></div>
+      <div class="body" style="margin-top:10px;">Motor DE bearing · peak 241.6 Hz · ISO 10816 Class II</div>
+      <div class="row"><span class="status"><span class="dot"></span>Caution</span><span>updated 00:00:12 ago</span></div>
+    </div>
+  </div>
+</body></html>

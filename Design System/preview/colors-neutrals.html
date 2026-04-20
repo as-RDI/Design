@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Neutrals</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 20px; background: var(--bg-0); font-family: var(--font-sans); }
+  .row { display: grid; grid-template-columns: repeat(13, 1fr); gap: 4px; }
+  .sw { border: 1px solid var(--border-1); border-radius: var(--r-1); overflow: hidden; }
+  .sw .chip { height: 48px; }
+  .sw .meta { padding: 6px 4px; background: var(--bg-card); text-align: center; }
+  .name { font-family: var(--font-mono); font-size: 9px; color: var(--fg-2); }
+  .section { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-3); margin: 0 0 10px; }
+  .legend { display: flex; gap: 16px; font-size: 11px; color: var(--fg-3); margin-top: 14px; }
+  .legend b { color: var(--fg-1); font-weight: 600; }
+</style></head>
+<body>
+  <div class="section">Neutral Ramp · 13 stops</div>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--gray-0); border-right:1px solid var(--border-2)"></div><div class="meta"><div class="name">0</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gray-1)"></div><div class="meta"><div class="name">1</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gray-2)"></div><div class="meta"><div class="name">2</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gray-3)"></div><div class="meta"><div class="name">3</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gray-4)"></div><div class="meta"><div class="name">4</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gray-5)"></div><div class="meta"><div class="name">5</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gray-6)"></div><div class="meta"><div class="name">6</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gray-7)"></div><div class="meta"><div class="name">7</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gray-8)"></div><div class="meta"><div class="name">8</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gray-9)"></div><div class="meta"><div class="name">9</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gray-10)"></div><div class="meta"><div class="name">10</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gray-11)"></div><div class="meta"><div class="name">11</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gray-12)"></div><div class="meta"><div class="name">12</div></div></div>
+  </div>
+  <div class="legend">
+    <span><b>bg</b> 0 – 3</span>
+    <span><b>borders</b> 4 – 5</span>
+    <span><b>fg-tert</b> 6 – 7</span>
+    <span><b>fg-body</b> 8 – 9</span>
+    <span><b>fg-heading</b> 10 – 12</span>
+  </div>
+</body></html>

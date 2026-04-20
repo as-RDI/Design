@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Badges & Status</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 22px 28px; background: var(--bg-0); font-family: var(--font-sans); display:flex; flex-direction:column; gap: 18px; }
+  .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .cap {
+    font-family: var(--font-mono); font-size: 10px; color: var(--fg-3);
+    width: 96px; flex-shrink: 0; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  /* ================================================================
+     STATUS BADGES — WCAG AA on both tint and solid
+     ================================================================ */
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px 4px 8px;
+    border-radius: 99px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .badge .dot { width: 7px; height: 7px; border-radius: 99px; box-shadow: 0 0 0 2px rgba(255,255,255,0.9); }
+
+  /* Tint variant — darker ink on stronger tint + inset ring for edge */
+  .pass    { background: #DCFCE7; color: #14532D; box-shadow: inset 0 0 0 1px rgba(21,83,45,0.18); }
+  .caution { background: #FEF3C7; color: #7C2D12; box-shadow: inset 0 0 0 1px rgba(124,45,18,0.18); }
+  .alarm   { background: #FEE2E2; color: #7F1D1D; box-shadow: inset 0 0 0 1px rgba(127,29,29,0.22); }
+  .info    { background: #DBEAFE; color: #1E3A8A; box-shadow: inset 0 0 0 1px rgba(30,58,138,0.18); }
+
+  .pass    .dot { background: #15803D; }
+  .caution .dot { background: #B45309; }
+  .alarm   .dot { background: #B91C1C; }
+  .info    .dot { background: #1E40AF; }
+
+  /* Solid variant — white on full-strength color (all AA+) */
+  .b-solid { color: #fff; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.18); padding: 4px 10px; }
+  .b-solid .dot { background: #fff; box-shadow: none; }
+  .pass.b-solid    { background: #15803D; }
+  .caution.b-solid { background: #9A3412; }
+  .alarm.b-solid   { background: #991B1B; }
+  .info.b-solid    { background: #1E40AF; }
+
+  /* ================================================================
+     TAGS — neutral
+     ================================================================ */
+  .tag {
+    background: var(--bg-2); color: var(--gray-11);
+    box-shadow: inset 0 0 0 1px var(--border-2);
+    font-weight: 600; letter-spacing: 0.04em; text-transform: none;
+  }
+
+  /* ================================================================
+     TRADEMARK CHIPS
+     ================================================================ */
+  .trade {
+    background: #FFE2E3; color: #7A1517;
+    box-shadow: inset 0 0 0 1px rgba(122,21,23,0.22);
+    font-weight: 700; letter-spacing: 0.04em; text-transform: none;
+  }
+
+  /* ================================================================
+     COUNTS — ringed pills, tabular nums, solid ink
+     ================================================================ */
+  .chip-count {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 22px; height: 22px; padding: 0 8px;
+    border-radius: 99px;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1; letter-spacing: 0;
+  }
+
+  /* Default — neutral filled count (AA: gray-11 on gray-2 is ~15:1) */
+  .count-neutral {
+    background: var(--bg-2); color: var(--gray-11);
+    box-shadow: inset 0 0 0 1px var(--border-3);
+  }
+  /* Brand count — solid red, white text w/ subtle inner ring for edge */
+  .count-brand {
+    background: var(--rdi-red-600); color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.18);
+  }
+  /* Alarm count — solid dark red, inset ring */
+  .count-alarm {
+    background: #991B1B; color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.20);
+  }
+  /* Cyan (instrument) count — deep cyan for AA */
+  .count-cyan {
+    background: #075569; color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.18);
+  }
+  /* Muted count — outline only, dark ink */
+  .count-outline {
+    background: var(--bg-0); color: var(--gray-10);
+    box-shadow: inset 0 0 0 1px var(--border-3);
+  }
+
+  /* ================================================================
+     NOTATION
+     ================================================================ */
+  .note {
+    font-family: var(--font-mono); font-size: 9.5px; color: var(--fg-4);
+    letter-spacing: 0.04em;
+  }
+</style></head>
+<body>
+  <div class="row">
+    <span class="cap">Status · tint</span>
+    <span class="badge pass"><span class="dot"></span>In spec</span>
+    <span class="badge caution"><span class="dot"></span>Caution</span>
+    <span class="badge alarm"><span class="dot"></span>Alarm</span>
+    <span class="badge info"><span class="dot"></span>Info</span>
+    <span class="note">AA · 7:1+</span>
+  </div>
+
+  <div class="row">
+    <span class="cap">Status · solid</span>
+    <span class="badge pass b-solid"><span class="dot"></span>In spec</span>
+    <span class="badge caution b-solid"><span class="dot"></span>Caution</span>
+    <span class="badge alarm b-solid"><span class="dot"></span>Alarm</span>
+    <span class="badge info b-solid"><span class="dot"></span>Info</span>
+    <span class="note">AAA · 8:1+</span>
+  </div>
+
+  <div class="row">
+    <span class="cap">Tags</span>
+    <span class="badge tag">Aerospace</span>
+    <span class="badge tag">Wastewater</span>
+    <span class="badge tag">Power Gen</span>
+    <span class="badge tag">Oil &amp; Gas</span>
+  </div>
+
+  <div class="row">
+    <span class="cap">Trademark</span>
+    <span class="badge trade">Motion Amplification®</span>
+    <span class="badge trade">TrueSight™</span>
+    <span class="badge trade">Iris aiOne™</span>
+  </div>
+
+  <div class="row">
+    <span class="cap">Counts</span>
+    <span class="chip-count count-neutral">14</span>
+    <span class="chip-count count-neutral">128</span>
+    <span class="chip-count count-outline">0</span>
+    <span class="chip-count count-brand">3 new</span>
+    <span class="chip-count count-alarm">3 alarms</span>
+    <span class="chip-count count-cyan">241.6 Hz</span>
+    <span class="note">tabular · 4.5:1+</span>
+  </div>
+</body></html>

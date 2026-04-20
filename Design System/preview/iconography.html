@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Iconography</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body { margin: 0; padding: 22px 28px; background: var(--bg-0); font-family: var(--font-sans); }
+  .section { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 10px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .chip { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--border-2); border-radius: var(--r-2); background: var(--bg-card); color: var(--fg-1); }
+  .chip i { width: 18px; height: 18px; stroke-width: 1.75; }
+  .meta { font-size: 11px; color: var(--fg-3); margin-left: 6px; font-family: var(--font-mono); }
+</style></head>
+<body>
+  <div class="section">Lucide · 1.75px stroke · monochrome</div>
+  <div class="row">
+    <div class="chip"><i data-lucide="target"></i></div>
+    <div class="chip"><i data-lucide="gauge"></i></div>
+    <div class="chip"><i data-lucide="waves"></i></div>
+    <div class="chip"><i data-lucide="activity"></i></div>
+    <div class="chip"><i data-lucide="rotate-cw"></i></div>
+    <div class="chip"><i data-lucide="camera"></i></div>
+    <div class="chip"><i data-lucide="video"></i></div>
+    <div class="chip"><i data-lucide="circle"></i></div>
+    <div class="chip"><i data-lucide="square"></i></div>
+    <div class="chip"><i data-lucide="settings"></i></div>
+    <div class="chip"><i data-lucide="share-2"></i></div>
+    <div class="chip"><i data-lucide="download"></i></div>
+  </div>
+  <div class="section">Sizes</div>
+  <div class="row" style="align-items:center;">
+    <div class="chip" style="width:28px;height:28px;"><i data-lucide="target" style="width:12px;height:12px;"></i></div>
+    <span class="meta">14 · inline with body</span>
+    <div class="chip"><i data-lucide="target"></i></div>
+    <span class="meta">18 · default</span>
+    <div class="chip" style="width:56px;height:56px;"><i data-lucide="target" style="width:24px;height:24px;"></i></div>
+    <span class="meta">24 · feature</span>
+  </div>
+  <script>lucide.createIcons();</script>
+</body></html>

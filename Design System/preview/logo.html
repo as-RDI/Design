@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Logo</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; background: var(--bg-0); display:grid; grid-template-columns:1fr 1fr; gap:0; }
+  .cell { padding: 36px 28px; display:flex; align-items:center; justify-content:center; position: relative; border: 1px solid var(--border-1); }
+  .cell.dark { background: #343A40; border-color: #343A40; }
+  .cell.light { background: #fff; }
+  .cell img { height: 64px; width: auto; }
+  .label { position:absolute; top:10px; left:12px; font: 600 10px/1 Inter, sans-serif; letter-spacing:.14em; text-transform:uppercase; color: var(--fg-3); }
+  .cell.dark .label { color: #9099A5; }
+</style></head>
+<body>
+  <div class="cell dark"><span class="label">Dark</span><img src="../assets/logo-rdi-white.png?v=2" alt="RDI Technologies"></div>
+  <div class="cell light"><span class="label">Light</span><img src="../assets/logo-rdi.png?v=2" alt="RDI Technologies"></div>
+</body></html>

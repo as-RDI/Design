@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Display Type</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 28px 32px; background: var(--bg-0); }
+  .row { display: flex; align-items: baseline; gap: 18px; padding: 10px 0; border-bottom: 1px solid var(--border-1); }
+  .row:last-child { border-bottom: 0; }
+  .label { width: 140px; flex-shrink: 0; }
+  .tag { display:block; font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); }
+  .spec { display:block; font-family: var(--font-mono); font-size: 9px; color: var(--fg-4); margin-top: 2px; }
+  .sample { color: var(--fg-1); }
+</style></head>
+<body>
+  <div class="row">
+    <div class="label"><span class="tag">rdi-hero</span><span class="spec">Barlow Cond · 800 · 96px</span></div>
+    <div class="rdi-hero sample" style="font-size: 72px; line-height: 1;">SEEING IS BELIEVING</div>
+  </div>
+  <div class="row">
+    <div class="label"><span class="tag">rdi-h1</span><span class="spec">Barlow Cond · 700 · 60px</span></div>
+    <div class="rdi-h1 sample" style="font-size: 44px;">VIBRATION ANALYSIS</div>
+  </div>
+  <div class="row">
+    <div class="label"><span class="tag">rdi-h3</span><span class="spec">Barlow Cond · 600 · 32px</span></div>
+    <div class="rdi-h3 sample" style="font-size: 24px;">Motion Amplification®</div>
+  </div>
+</body></html>

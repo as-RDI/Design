@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Colors — Primary</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 20px; background: var(--bg-0); font-family: var(--font-sans); }
+  .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .sw { border: 1px solid var(--border-1); border-radius: var(--r-2); overflow: hidden; }
+  .sw .chip { height: 56px; }
+  .sw .meta { padding: 8px 10px; background: var(--bg-card); }
+  .name { font-size: 11px; font-weight: 600; color: var(--fg-1); letter-spacing: 0.02em; }
+  .hex { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); margin-top: 2px; }
+  .section { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-3); margin: 0 0 8px; }
+</style></head>
+<body>
+  <div class="section">RDI Red · Brand Primary</div>
+  <div class="grid">
+    <div class="sw"><div class="chip" style="background:var(--rdi-red-100)"></div><div class="meta"><div class="name">red-100</div><div class="hex">#FFE2E3</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--rdi-red-300)"></div><div class="meta"><div class="name">red-300</div><div class="hex">#F59094</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--rdi-red-500); border-bottom:1px solid var(--rdi-red-600)"></div><div class="meta"><div class="name">red-500 · brand</div><div class="hex">#BA2528</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--rdi-red-700)"></div><div class="meta"><div class="name">red-700</div><div class="hex">#7A1517</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--rdi-red-900)"></div><div class="meta"><div class="name">red-900</div><div class="hex">#3A0709</div></div></div>
+  </div>
+</body></html>
